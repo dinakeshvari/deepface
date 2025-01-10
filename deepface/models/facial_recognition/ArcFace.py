@@ -71,13 +71,13 @@ def load_model(
     arcface_model = BatchNormalization(momentum=0.9, epsilon=2e-5)(arcface_model)
     arcface_model = Dropout(0.4)(arcface_model)
     arcface_model = Flatten()(arcface_model)
-    arcface_model = Dense(512, activation=None, use_bias=True, kernel_initializer="glorot_normal")(
-        arcface_model
-    )
-    embedding = BatchNormalization(momentum=0.9, epsilon=2e-5, name="embedding", scale=True)(
-        arcface_model
-    )
-    model = Model(inputs, embedding, name=base_model.name)
+    # arcface_model = Dense(512, activation=None, use_bias=True, kernel_initializer="glorot_normal")(
+    #     arcface_model
+    # )
+    # embedding = BatchNormalization(momentum=0.9, epsilon=2e-5, name="embedding", scale=True)(
+    #     arcface_model
+    # )
+    model = Model(inputs, arcface_model, name=base_model.name)
 
     # ---------------------------------------
     weight_file = weight_utils.download_weights_if_necessary(
